@@ -1,0 +1,138 @@
+#include "header.h"
+
+int sum_of_digits_logic(int number) //function to calculate the sum of 5 digits
+{
+    int sum = 0;
+
+    if (check_num_size(number) != 5) //Calls for a function to check a valid 5 digit number.
+    {
+        printf("\nInvalid number of digits.\n");//If not equal to 5 then exit with an invalid message
+        return 0;
+    }
+
+    else //if size is equal to 5 then calculate the sum.
+    {
+        for (int i = 0; i<ARR_SIZE; i++)
+        {
+            sum += (number % 10);
+            number = number/10;
+        }
+    }
+     return sum;
+}
+
+int check_num_size(int number_check) //function to check the size of the code
+{
+    int count = 0;
+
+    while(number_check != 0)//if the number(quotient) is 0, then while loop ends.
+    {
+        number_check /= 10;
+        count++;
+    }
+    return count; //Returns the number of bits to the called function
+}
+
+
+int rev_of_number_logic(int number) //logic to reverse the entered number
+{
+    int number_size = check_num_size(number); //first we'll check the size of the number
+
+    int LSB = 0, sum = 0;
+
+    for (int i = 0; i<number_size; i++)
+    {
+        LSB = number%10;
+        number /= 10;
+        sum += LSB * (pow(10, ((number_size - 1) - i))); //Ex: 1234,LSB = 4; sum = (10^3)*4 || LSB = 3; sum = (10^2)*3 || LSB = 2; sum = (10^1)*2 || LSB = 1; sum = (10^0)*1 = Sum = 4000+300+20+1 = 4321
+    }
+    return sum;
+}
+
+int check_num_palindrome_logic(int number) //logic to check if the number is palindrome
+{
+    //int num_size = check_num_size(number);
+    int rev_number = rev_of_number_logic(number);
+
+    if (rev_number == number) //if rev of the number is same as the given number, then it is a palindrome
+        return number;
+    else
+        return 0;
+
+    return 0;//default return condition
+}
+
+
+int check_prime(int number)
+{
+    int flag = 0;
+
+    if ((number != 0) && (number != 1)) //checking for number only if it is not equal to 0 and 1;
+    {
+        for (int i = 2; i <= (number / 2); i++)
+        {
+            if (number % i == 0)
+            {
+                flag = 1;
+                return NOT_PRIME;//returns 2 if the number is not prime
+            }
+
+        }
+
+        if (flag == 0)
+            return PRIME_NUMBER;//returns 1 is prime
+    }
+
+    return INVALID_NUMBER;//returns 0 if invalid //when the number entered is (0 or 1)
+}
+
+
+int generate_prime_nums_logic(int limit) //logic to produce the list of prime numbers up-to the limit
+{
+    int input = 2, count = 0;
+
+    while (count < limit)
+    {
+        if ((check_prime(input)) == PRIME_NUMBER)
+        {
+            count ++;
+            printf("%d\t", input);
+        }
+        input ++; //check for the next prime number
+    }
+    return count;
+}
+
+
+int sum_of_series_logic(int limit) //logic to produce the pattern 1+11+111+1111...number of times as per user input
+{
+    int pattern_number = 1, sum = 0;
+
+    for (int i=1; i<=limit; i++) //loop the number of times as per the users input (ex: n=4, 1(1st time), 11(2nd time), 111, 1111)
+    {
+        printf("%d ",pattern_number);
+        if (i<limit) printf("+ "); //the + symbol is only required for numbers greater than 1 or less than limit (example: 1, dont need 1+ ; and say if number is 5, 11111+ at the end is not required)
+
+        sum+=pattern_number; // keep adding the sum (0+1)(1+11=12)(12+111=123)(123+1111=1234)
+        pattern_number= pattern_number*10 + 1;// (1*10 +1 = 11)(11*10 +1 = 111) ..
+    }
+
+    printf("\nThe sum is: %d",sum);
+    return sum;
+
+}
+
+int armstrong_num_check_logic(int input) //logic to produce the sum of cubes of the individual numbers
+{
+    int sum = 0, num_size, digit_var;
+    num_size = check_num_size(input);//check the number of bits for the outer loop iterations
+
+    for (int i=1; i<=num_size; i++)
+    {
+      digit_var = input%10;// LSB is taken
+      sum+=pow(digit_var, 3); // LSB digit is cubed and summed
+      input = input/10;// the number is then updated excluding the LSB
+    }
+    return sum;
+}
+

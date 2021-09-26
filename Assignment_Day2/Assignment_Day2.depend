@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1632594154 source:c:\users\harshith ramamurthy\onedrive\documents\assignment_day2\logic.c
+	"header.h"
+
+1632570664 c:\users\harshith ramamurthy\onedrive\documents\assignment_day2\header.h
+	<stdio.h>
+	<assert.h>
+	<math.h>
+
+1632594261 source:c:\users\harshith ramamurthy\onedrive\documents\assignment_day2\main.c
+	"header.h"
+
